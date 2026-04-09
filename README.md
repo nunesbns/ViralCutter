@@ -49,9 +49,9 @@ Esqueça assinaturas caras e limites de minutos. O ViralCutter oferece poder ili
 
 ## Instalação Local (Super Rápida ⚡)
 
-### Pré-requisitos (Instalação "do zero")
+### 🪟 Windows
 
-Para rodar o ViralCutter em um computador novo, você precisa instalar os seguintes programas essenciais:
+#### Pré-requisitos
 
 1. **Ferramentas de Build do Visual Studio (C++ Build Tools)**
    Necessário para compilar o `insightface` e evitar erros "Cpp/Visual Studio".
@@ -72,9 +72,7 @@ Para rodar o ViralCutter em um computador novo, você precisa instalar os seguin
    - Mantenha os drivers atualizados (via GeForce Experience ou site oficial) para usar a aceleração CUDA 12.4+.
    - **GPU NVIDIA** é fortemente recomendada para velocidade e IAs locais.
 
----
-
-### Passo a Passo da Instalação
+#### Passo a Passo
 
 1.  **Instale as dependências via Script**
     Acesse a pasta do ViralCutter e escolha **um dos instaladores** abaixo com duplo clique:
@@ -90,6 +88,36 @@ Para rodar o ViralCutter em um computador novo, você precisa instalar os seguin
 3.  **Rodar**
     -   Duplo clique em `run_webui.bat` para abrir a interface no navegador.
     -   Ou use `python main_improved.py` para a versão CLI.
+
+---
+
+### 🐧 Linux
+
+#### Pré-requisitos
+
+1. **Python 3.10.x ou 3.11.x** + módulo `venv`
+2. **FFmpeg** — `sudo apt install ffmpeg` (Debian/Ubuntu) ou equivalente na sua distro
+3. **Build tools** — `sudo apt install build-essential git` (necessário para compilar `insightface`)
+4. **Drivers NVIDIA + CUDA 12.4+** (opcional, mas fortemente recomendado para performance)
+
+#### Passo a Passo
+
+1.  **Instale as dependências via Script**
+    ```bash
+    chmod +x install_dependencies.sh
+    ./install_dependencies.sh
+    ```
+    O script verifica automaticamente se as dependências do sistema estão instaladas, pergunta o tipo de GPU (NVIDIA/CPU) e o modo de instalação (padrão ou avançado com LLMs locais).
+
+2.  **Configurar IA (Opcional)**
+    -   **Gemini (Recomendado/Free)**: Adicione sua chave em `api_config.json`.
+    -   **Local (GGUF)**: Baixe seus modelos `.gguf` favoritos e coloque na pasta `models/`. O ViralCutter irá detectá-los automaticamente.
+
+3.  **Rodar**
+    ```bash
+    ./run_webui.sh          # Interface Web (abre em http://localhost:7860)
+    ./run.sh                # Ou a versão CLI
+    ```
 
 ## Exemplos de Saída
 

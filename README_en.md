@@ -49,9 +49,9 @@ Forget expensive subscriptions and minute limits. ViralCutter offers unlimited p
 
 ## Local Installation (Super Fast ⚡)
 
-### Prerequisites (From Scratch Setup)
+### 🪟 Windows
 
-To run ViralCutter on a fresh computer, you need to install the following core tools:
+#### Prerequisites
 
 1. **Visual Studio C++ Build Tools**
    Required to compile `insightface` and avoid "Cpp/Visual Studio" setup errors.
@@ -72,9 +72,7 @@ To run ViralCutter on a fresh computer, you need to install the following core t
    - Keep your drivers updated (via GeForce Experience or the Nvidia website) to support CUDA 12.4+ acceleration.
    - **NVIDIA GPU** is highly recommended for speed and local AI operations.
 
----
-
-### Step-by-Step Installation
+#### Step-by-Step
 
 1.  **Install Dependencies via Script**
     Open the ViralCutter folder and double-click **one of the installers** below:
@@ -90,6 +88,36 @@ To run ViralCutter on a fresh computer, you need to install the following core t
 3.  **Run**
     -   Double-click `run_webui.bat` to open the interface in your browser.
     -   Or use `python main_improved.py` for the CLI version.
+
+---
+
+### 🐧 Linux
+
+#### Prerequisites
+
+1. **Python 3.10.x or 3.11.x** + `venv` module
+2. **FFmpeg** — `sudo apt install ffmpeg` (Debian/Ubuntu) or equivalent for your distro
+3. **Build tools** — `sudo apt install build-essential git` (required to compile `insightface`)
+4. **NVIDIA Drivers + CUDA 12.4+** (optional, but highly recommended for performance)
+
+#### Step-by-Step
+
+1.  **Install Dependencies via Script**
+    ```bash
+    chmod +x install_dependencies.sh
+    ./install_dependencies.sh
+    ```
+    The script automatically checks if system dependencies are installed, asks for your GPU type (NVIDIA/CPU), and the installation mode (standard or advanced with local LLMs).
+
+2.  **Configure AI (Optional)**
+    -   **Gemini (Recommended/Free)**: Add your key in `api_config.json`.
+    -   **Local (GGUF)**: Download your favorite `.gguf` models and place them in the `models/` folder. ViralCutter will detect them automatically.
+
+3.  **Run**
+    ```bash
+    ./run_webui.sh          # Web Interface (opens at http://localhost:7860)
+    ./run.sh                # Or the CLI version
+    ```
 
 ## Output Examples
 
