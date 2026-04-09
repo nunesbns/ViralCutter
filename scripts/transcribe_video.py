@@ -224,8 +224,8 @@ def transcribe(input_file, model_name='large-v3', project_folder='tmp'):
         start_segments = None
         alignment_only = False
         
-        # Default blind guess if we have no info
-        detected_language = "en" 
+        # Default language
+        detected_language = "pt" 
 
         if potential_subs:
             sub_path = potential_subs[0]
@@ -242,8 +242,8 @@ def transcribe(input_file, model_name='large-v3', project_folder='tmp'):
                 start_segments = parsed
                 alignment_only = True
                 
-                # Forçar EN conforme solicitado pelo usuário para alinhamento
-                detected_language = 'en'
+                # Idioma padrão para alinhamento
+                detected_language = 'pt'
                 print(f"Idioma forçado para alinhamento: {detected_language}")
                 
                 print("--- MODO ALINHAMENTO RÁPIDO ATIVADO ---")
