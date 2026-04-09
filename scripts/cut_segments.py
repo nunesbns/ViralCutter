@@ -8,8 +8,8 @@ def cut(segments, project_folder="tmp", skip_video=False):
     def check_nvenc_support():
         # ... (unchanged)
         try:
-            result = subprocess.run(["ffmpeg", "-encoders"], capture_output=True, text=True)
-            return "h264_nvenc" in result.stdout
+            result = subprocess.run(["ffmpeg", "-y", "-f", "lavfi", "-i", "nullsrc=s=16x16:d=0.1", "-c:v", "h264_nvenc", "-f", "null", "-"], capture_output=True, text=True)
+            return result.returncode == 0
         except subprocess.CalledProcessError:
             return False
 

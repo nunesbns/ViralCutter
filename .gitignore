@@ -20,7 +20,7 @@ Thumbs.db
 
 # Project-specific
 models/*.gguf
-virals/
+VIRALS/
 output/
 *.log
 .env

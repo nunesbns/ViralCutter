@@ -20,29 +20,31 @@ def get_best_encoder():
     global CACHED_ENCODER
     if CACHED_ENCODER: return CACHED_ENCODER
     
+    def test_encoder(name):
+        try:
+            r = subprocess.run(["ffmpeg", "-y", "-f", "lavfi", "-i", "nullsrc=s=16x16:d=0.1", "-c:v", name, "-f", "null", "-"], capture_output=True, text=True)
+            return r.returncode == 0
+        except Exception:
+            return False
+
     try:
-        # Check available encoders
-        result = subprocess.run(['ffmpeg', '-hide_banner', '-encoders'], capture_output=True, text=True)
-        output = result.stdout
-        
         # Priority: NVENC (NVIDIA) > AMF (AMD) > QSV (Intel) > CPU
-        if "h264_nvenc" in output:
+        if test_encoder("h264_nvenc"):
             print("Encoder Detected: NVIDIA (h264_nvenc)")
-            CACHED_ENCODER = ("h264_nvenc", "fast") # p1-p7 presets could be used but 'fast' maps well
+            CACHED_ENCODER = ("h264_nvenc", "fast")
             return CACHED_ENCODER
         
-        if "h264_amf" in output:
+        if test_encoder("h264_amf"):
             print("Encoder Detected: AMD (h264_amf)")
-            CACHED_ENCODER = ("h264_amf", "speed") # quality, speed, balanced
+            CACHED_ENCODER = ("h264_amf", "speed")
             return CACHED_ENCODER
             
-        if "h264_qsv" in output:
+        if test_encoder("h264_qsv"):
              print("Encoder Detected: Intel QSV (h264_qsv)")
              CACHED_ENCODER = ("h264_qsv", "veryfast")
              return CACHED_ENCODER
              
-        # Mac OS (VideoToolbox)
-        if "h264_videotoolbox" in output:
+        if test_encoder("h264_videotoolbox"):
              print("Encoder Detected: MacOS (h264_videotoolbox)")
              CACHED_ENCODER = ("h264_videotoolbox", "default")
              return CACHED_ENCODER
