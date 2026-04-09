@@ -16,7 +16,7 @@ if sys.stdout and hasattr(sys.stdout, 'buffer'):
 
 # Tenta importar bibliotecas de IA opcionalmente
 try:
-    import google.generativeai as genai
+    from google import genai
     HAS_GEMINI = True
 except ImportError:
     HAS_GEMINI = False
@@ -198,18 +198,16 @@ def preprocess_transcript_for_ai(segments):
 
 def call_gemini(prompt, api_key, model_name='gemini-2.5-flash-lite-preview-09-2025'):
     if not HAS_GEMINI:
-        raise ImportError("A biblioteca 'google-generativeai' não está instalada. Instale com: pip install google-generativeai")
+        raise ImportError("A biblioteca 'google-genai' não está instalada. Instale com: pip install google-genai")
     
-    genai.configure(api_key=api_key)
-    # Usando modelo definido na config ou o padrão
-    model = genai.GenerativeModel(model_name) 
+    client = genai.Client(api_key=api_key)
     
     max_retries = 5
     base_wait = 30
 
     for attempt in range(max_retries):
         try:
-            response = model.generate_content(prompt)
+            response = client.models.generate_content(model=model_name, contents=prompt)
             return response.text
         except Exception as e:
             error_str = str(e)
