@@ -353,7 +353,7 @@ def main():
         api_key = args.api_key
         # Check config for API Key if using Gemini
         if ai_backend == "gemini" and not api_key:
-            cfg_key = api_config.get("gemini", {}).get("api_key", "")
+            cfg_key = os.environ.get("GEMINI_API_KEY", "") or api_config.get("gemini", {}).get("api_key", "")
             if cfg_key and cfg_key != "SUA_KEY_AQUI":
                 api_key = cfg_key
         

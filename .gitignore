@@ -23,6 +23,8 @@ models/*.gguf
 virals/
 output/
 *.log
+.env
+api_config.json
 
 # Temporary files
 temp*.json

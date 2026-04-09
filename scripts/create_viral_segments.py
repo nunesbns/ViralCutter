@@ -543,7 +543,7 @@ def create(num_segments, viral_mode, themes, tempo_minimo, tempo_maximo, ai_mode
         current_chunk_size = chunk_size_arg if chunk_size_arg and int(chunk_size_arg) > 0 else cfg_chunk
         cfg_model = config["gemini"].get("model", "gemini-2.5-flash-lite-preview-09-2025")
         model_name = model_name_arg if model_name_arg else cfg_model
-        if not api_key: api_key = config["gemini"].get("api_key", "")
+        if not api_key: api_key = os.environ.get("GEMINI_API_KEY", "") or config["gemini"].get("api_key", "")
             
     elif ai_mode == "g4f":
         cfg_chunk = config["g4f"].get("chunk_size", 2000)
